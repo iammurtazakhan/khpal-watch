@@ -46,7 +46,7 @@ export const Footer: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-4 text-xs text-zinc-500">
-          <span>© {new Date().getFullYear()} Khpal Watch Store. All Pakistan Cash on Delivery.</span>
+          <span>ï¿½ {new Date().getFullYear()} Khpal Watch Store. All Pakistan Cash on Delivery.</span>
           <Link to="/admin" className="inline-flex items-center gap-1 text-zinc-600 hover:text-[#c5a880] transition">
             <Lock size={12} /> Admin Studio
           </Link>

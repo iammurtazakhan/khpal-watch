@@ -196,7 +196,7 @@ export const Checkout: React.FC = () => {
             disabled={submitting}
             className="w-full py-4 bg-[#c5a880] text-black font-semibold rounded-xl hover:bg-[#d6b991] transition flex items-center justify-center gap-2 shadow-lg shadow-[#c5a880]/20 disabled:opacity-50"
           >
-            {submitting ? 'Confirming Order...' : `Confirm Order — ${formatPrice(totalPrice)}`}
+            {submitting ? 'Confirming Order...' : `Confirm Order ï¿½ ${formatPrice(totalPrice)}`}
           </button>
         </form>
 

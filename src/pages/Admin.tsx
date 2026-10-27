@@ -12,7 +12,6 @@ export const Admin: React.FC = () => {
   const [successMsg, setSuccessMsg] = useState<string>('');
   const [errorMsg, setErrorMsg] = useState<string>('');
 
-  // Form State
   const [name, setName] = useState('');
   const [brand, setBrand] = useState('');
   const [price, setPrice] = useState<number | ''>('');
@@ -56,10 +55,8 @@ export const Admin: React.FC = () => {
       setUploading(true);
       setErrorMsg('');
 
-      // 1. Upload photo to Supabase Storage Bucket 'watch-images'
       const publicImageUrl = await productService.uploadImage(imageFile);
 
-      // 2. Insert watch record to Supabase Database 'products' table
       const newWatch: Product = {
         id: `kw-${Date.now().toString().slice(-6)}`,
         name,
@@ -85,7 +82,6 @@ export const Admin: React.FC = () => {
       await productService.addProduct(newWatch);
       await loadProducts();
 
-      // Reset Form
       setName('');
       setBrand('');
       setPrice('');
@@ -124,7 +120,7 @@ export const Admin: React.FC = () => {
           </Link>
           <h1 className="text-3xl font-extrabold text-white flex items-center gap-3">
             <Watch size={28} className="text-[#c5a880]" />
-            Khpal Watch — Admin Studio
+            Khpal Watch ï¿½ Admin Studio
           </h1>
           <p className="text-xs text-zinc-400 mt-1">
             Upload watches and high-resolution photos directly to Supabase Cloud Storage.
@@ -146,7 +142,6 @@ export const Admin: React.FC = () => {
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
-        {/* Upload Form */}
         <div className="p-6 rounded-2xl bg-[#131317] border border-zinc-800 space-y-5 lg:col-span-1">
           <h2 className="text-lg font-bold text-white flex items-center gap-2">
             <PlusCircle size={20} className="text-[#c5a880]" />
@@ -220,9 +215,8 @@ export const Admin: React.FC = () => {
               </div>
             </div>
 
-            {/* Image File Picker */}
             <div>
-              <label className="block text-zinc-400 font-medium mb-1">Select Watch Photo from PC/Phone *</label>
+              <label className="block text-zinc-400 font-medium mb-1">Select Watch Photo *</label>
               <div className="border border-dashed border-zinc-700 rounded-xl p-4 text-center bg-zinc-900/60 hover:border-[#c5a880] transition">
                 <input
                   type="file"
@@ -261,11 +255,33 @@ export const Admin: React.FC = () => {
               </div>
             </div>
 
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block text-zinc-400 font-medium mb-1">Water Resistance</label>
+                <input
+                  type="text"
+                  value={waterResistance}
+                  onChange={(e) => setWaterResistance(e.target.value)}
+                  className="w-full px-3.5 py-2 rounded-lg bg-zinc-900 border border-zinc-700 text-white text-xs focus:border-[#c5a880] focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-zinc-400 font-medium mb-1">Strap Material</label>
+                <input
+                  type="text"
+                  value={strapMaterial}
+                  onChange={(e) => setStrapMaterial(e.target.value)}
+                  className="w-full px-3.5 py-2 rounded-lg bg-zinc-900 border border-zinc-700 text-white text-xs focus:border-[#c5a880] focus:outline-none"
+                />
+              </div>
+            </div>
+
             <div>
               <label className="block text-zinc-400 font-medium mb-1">Description</label>
               <textarea
                 rows={3}
-                placeholder="Details about craftsmanship, dial finish..."
+                placeholder="Details about craftsmanship..."
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 className="w-full px-3.5 py-2 rounded-lg bg-zinc-900 border border-zinc-700 text-white text-xs focus:border-[#c5a880] focus:outline-none"
@@ -292,11 +308,8 @@ export const Admin: React.FC = () => {
           </form>
         </div>
 
-        {/* Existing Products Catalog */}
         <div className="lg:col-span-2 space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg font-bold text-white">Live Supabase Inventory ({products.length})</h2>
-          </div>
+          <h2 className="text-lg font-bold text-white">Live Supabase Inventory ({products.length})</h2>
 
           {loading ? (
             <div className="py-20 text-center text-zinc-500 text-sm">Fetching cloud inventory...</div>
@@ -304,7 +317,7 @@ export const Admin: React.FC = () => {
             <div className="p-12 text-center border border-dashed border-zinc-800 rounded-2xl bg-zinc-900/30 text-zinc-400 space-y-2">
               <Watch size={36} className="mx-auto text-zinc-600 mb-2" />
               <h3 className="text-base font-semibold text-white">Database is completely empty</h3>
-              <p className="text-xs text-zinc-500">All dummy watches removed. Use the form on the left to upload your first real watch!</p>
+              <p className="text-xs text-zinc-500">Upload your first timepiece to see it here!</p>
             </div>
           ) : (
             <div className="space-y-3">
@@ -321,7 +334,7 @@ export const Admin: React.FC = () => {
                     />
                     <div>
                       <span className="text-[10px] uppercase font-bold tracking-widest text-[#c5a880] block">
-                        {item.category} • {item.brand}
+                        {item.category} ï¿½ {item.brand}
                       </span>
                       <h4 className="text-sm font-semibold text-white">{item.name}</h4>
                       <span className="text-xs font-bold text-zinc-300">{formatPrice(item.price)}</span>
